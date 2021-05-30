@@ -43,6 +43,22 @@ class TodoController extends Controller
         }
     }
 
+    public function complete(Todo $todo) {
+        $todo->update([
+            'status' => 'completed',
+            'completed_at' => date('Y-m-d H:i:s')
+            ]);
+        return redirect()->route('todo.index');
+    }
+
+    public function uncomplete(Todo $todo) {
+        $todo->update([
+            'status' => 'pending',
+            'completed_at' => null
+        ]);
+        return redirect()->route('todo.index');
+    }
+
     /**
      * Display the specified resource.
      *
