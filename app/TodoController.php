@@ -32,7 +32,15 @@ class TodoController extends Controller
      */
     public function store(TodoCreateRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            Todo::query()->create($request->validated());
+            DB::commit();
+            return redirect()->route('todo.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['message' => $th->getMessage()]);
+        }
     }
 
     /**
