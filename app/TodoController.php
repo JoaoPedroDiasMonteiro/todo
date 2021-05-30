@@ -81,6 +81,7 @@ class TodoController extends Controller
             ['task' => 'Adicionar Exclusões'],
             ['task' => 'Desativar Atualizações do Windows (WUB)'],
             ['task' => 'Ativar Windows Defender'],
+            ['task' => 'Desativar Atualizações do Office'],
 
             ['task' => '----Firulas----'],
             ['task' => 'Colocar Icones do Computador na Área de Trabalho'],
@@ -89,7 +90,10 @@ class TodoController extends Controller
             ['task' => 'Arrastar Icones do Relógio'],
             ['task' => 'Arrumar as Notificações do Windows'],
             ['task' => 'Colocar Office na área de Trabalho'],
-            ['task' => 'Organizar os Icones']
+            ['task' => 'Organizar os Icones'], 
+            ['task' => 'Arrastar Ícone do Office para a barra de tarefas'],
+            ['task' => 'Otimizar Windows Defender (tirar os amarelinhos)'],
+            ['task' => 'Alterar o Nome dos Discos (C: Sistema, D: Dados)'],
         ];
 
         Todo::query()->insert($todos);
