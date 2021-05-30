@@ -59,6 +59,43 @@ class TodoController extends Controller
         return redirect()->route('todo.index');
     }
 
+    public function createTodosForWindows() {
+        $todos = [
+            ['task' => '----Instalações----'],
+            ['task' => 'Instalar Office'],
+            ['task' => 'Instalar Google Chrome'],
+            ['task' => 'Instalar WinRAR'],
+            ['task' => 'Instalar Adobe PDF'],
+            ['task' => 'Instalar Suporte Visual'],
+
+            ['task' => '----Otimizações----'],
+            ['task' => 'Serviço: SYSMAIN'],
+            ['task' => 'Energia e Suspensão'],
+            ['task' => 'Segurança e Manutenção 1'],
+            ['task' => 'Segurança e Manutenção 2'],
+            ['task' => 'Gerenciador de Tarefas/Iniciar (OneDrive)'],
+
+            ['task' => '----Crack----'],
+            ['task' => 'Desativar Windows Defender'],
+            ['task' => 'Crack Windows 10 e Office'],
+            ['task' => 'Adicionar Exclusões'],
+            ['task' => 'Desativar Atualizações do Windows (WUB)'],
+            ['task' => 'Ativar Windows Defender'],
+
+            ['task' => '----Firulas----'],
+            ['task' => 'Colocar Icones do Computador na Área de Trabalho'],
+            ['task' => 'Definir Chrome como Default'],
+            ['task' => 'Definir Adobe PDF com o Default'],
+            ['task' => 'Arrastar Icones do Relógio'],
+            ['task' => 'Arrumar as Notificações do Windows'],
+            ['task' => 'Colocar Office na área de Trabalho'],
+            ['task' => 'Organizar os Icones']
+        ];
+
+        Todo::query()->insert($todos);
+        return redirect()->route('todo.index');
+    }
+
     /**
      * Display the specified resource.
      *

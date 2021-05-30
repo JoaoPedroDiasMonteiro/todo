@@ -4,7 +4,7 @@
     <div class="px-4 py-4 bg-white border border-gray-200 rounded shadow-md">
       <div class="text-lg font-bold title">
         Lista de Tarefas
-        <!-- <inertia-link :href="route('todo.createTodosForWindows')" class="float-right px-3 text-white bg-blue-500 rounded">Windows 10</inertia-link> -->
+        <inertia-link :href="route('todo.createTodosForWindows')" class="float-right px-3 text-white bg-blue-500 rounded">Windows 10</inertia-link>
       </div>
       <div
         class="flex items-center mt-2 text-sm cursor-pointer select-none"

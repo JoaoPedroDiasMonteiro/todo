@@ -23,3 +23,4 @@ Route::resource('todo', TodoController::class);
 
 Route::post('todo/{todo}/complete', [TodoController::class, 'complete'])->name('todo.complete');
 Route::post('todo/{todo}/uncomplete', [TodoController::class, 'uncomplete'])->name('todo.uncomplete');
+Route::get('todo/create/for-windows', [TodoController::class, 'createTodosForWindows'])->name('todo.createTodosForWindows');

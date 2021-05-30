@@ -13,4 +13,4 @@ createApp({
     initialPage: JSON.parse(el.dataset.page),
     resolveComponent: name => import(`./Pages/${name}`).then(module => module.default),
   })
-}).use(plugin).mount(el)
+}).use(plugin).mixin({ methods: { route } }).mount(el)

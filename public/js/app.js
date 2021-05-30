@@ -16635,7 +16635,11 @@ var el = document.getElementById('app');
       }
     });
   }
-}).use(_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.plugin).mount(el);
+}).use(_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.plugin).mixin({
+  methods: {
+    route: route
+  }
+}).mount(el);
 
 /***/ }),
 
