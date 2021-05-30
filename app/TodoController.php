@@ -19,7 +19,7 @@ class TodoController extends Controller
     public function index()
     {
         return Inertia::render('Todo/Index', [
-            'todos' => Todo::withRecentCompleted()->get()
+            'todos' => Todo::withRecentCompleted()->orderBy('status')->get()
         ]);
     }
 
