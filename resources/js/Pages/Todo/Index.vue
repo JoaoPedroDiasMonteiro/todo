@@ -41,11 +41,11 @@
             class="flex items-center justify-between mt-3"
             v-for="todo in todos"
             :key="todo.id"
-            @click="toggleTodo(todo)"
           >
             <div
               class="flex items-center"
               :class="{ 'line-through': todo.status === 'completed' }"
+              @click="toggleTodo(todo)"
             >
               <input :checked="todo.status === 'completed'" type="checkbox" />
               <div class="ml-3 text-sm font-semibold">{{ todo.task }}</div>
@@ -54,7 +54,7 @@
               <button>
                 <svg
                   class="w-4 h-4 text-gray-600 fill-current "
-                  click="deleteTodo(todo.id)"
+                  @click="deleteTodo(todo)"
                   fill="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -116,6 +116,9 @@ export default {
           }
         );
       }
+    },
+    deleteTodo(todo) {
+      this.$inertia.delete(route('todo.destroy', todo.id))
     }
   }
 };

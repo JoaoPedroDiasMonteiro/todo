@@ -43,6 +43,9 @@ __webpack_require__.r(__webpack_exports__);
           preserveScroll: true
         });
       }
+    },
+    deleteTodo: function deleteTodo(todo) {
+      this.$inertia["delete"](route('todo.destroy', todo.id));
     }
   }
 });
@@ -103,18 +106,9 @@ var _hoisted_9 = {
   "class": "ml-3 text-sm font-semibold"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("svg", {
-  "class": "w-4 h-4 text-gray-600 fill-current ",
-  click: "deleteTodo(todo.id)",
-  fill: "none",
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  "stroke-width": "2",
-  viewBox: "0 0 24 24",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("path", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("path", {
   d: "M6 18L18 6M6 6l12 12"
-})])])], -1
+}, null, -1
 /* HOISTED */
 );
 
@@ -154,14 +148,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newTodo]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" todo list "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.todos, function (todo) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("li", {
       "class": "flex items-center justify-between mt-3",
-      key: todo.id,
-      onClick: function onClick($event) {
-        return $options.toggleTodo(todo);
-      }
+      key: todo.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
       "class": ["flex items-center", {
         'line-through': todo.status === 'completed'
-      }]
+      }],
+      onClick: function onClick($event) {
+        return $options.toggleTodo(todo);
+      }
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
       checked: todo.status === 'completed',
       type: "checkbox"
@@ -169,11 +163,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* PROPS */
     , ["checked"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(todo.task), 1
     /* TEXT */
-    )], 2
-    /* CLASS */
-    ), _hoisted_10], 8
+    )], 10
+    /* CLASS, PROPS */
+    , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("svg", {
+      "class": "w-4 h-4 text-gray-600 fill-current ",
+      onClick: function onClick($event) {
+        return $options.deleteTodo(todo);
+      },
+      fill: "none",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": "2",
+      viewBox: "0 0 24 24",
+      stroke: "currentColor"
+    }, [_hoisted_10], 8
     /* PROPS */
-    , ["onClick"]);
+    , ["onClick"]))])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])])]);
