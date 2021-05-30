@@ -40781,10 +40781,8 @@ module.exports = webpackAsyncContext;
 /******/ 	(() => {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
-/******/ 			// return url for filenames not based on template
-/******/ 			if (chunkId === "resources_js_Pages_Todo_Index_vue") return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
-/******/ 			return undefined;
+/******/ 			return "js/" + chunkId + ".js?id=" + "a7aaf6370e424a9979c9" + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
