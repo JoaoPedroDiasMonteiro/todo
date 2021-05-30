@@ -1,5 +1,6 @@
 <?php
 
+use App\TodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('todo.index');
 });
+
+
+Route::resource('todo', TodoController::class);
+
+Route::post('todo/{todo}/complete', [TodoController::class, 'complete'])->name('todo.complete');
+Route::post('todo/{todo}/uncomplete', [TodoController::class, 'uncomplete'])->name('todo.uncomplete');
