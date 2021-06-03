@@ -42,18 +42,6 @@ export default {
     todos: Object,
   },
   methods: {
-    addTodo() {
-      if (this.newTodo) {
-        this.$inertia.post(
-          route("todo.store"),
-          { task: this.newTodo, todo: this.todo.id },
-          {
-            preserveScroll: true,
-          }
-        );
-        this.newTodo = null;
-      }
-    },
     toggleTodo(todo) {
       if (todo.status === "pending") {
         todo.status = "completed";

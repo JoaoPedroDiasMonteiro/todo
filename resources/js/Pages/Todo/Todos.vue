@@ -59,6 +59,23 @@ export default {
       newTodo: null,
     };
   },
+  methods: {
+      inputFocus() {
+          this.$refs.input.focus()
+      },
+      addTodo() {
+      if (this.newTodo) {
+        this.$inertia.post(
+          route("todo.store"),
+          { task: this.newTodo },
+          {
+            preserveScroll: true,
+          }
+        );
+        this.newTodo = null;
+      }
+    },
+  }
 };
 </script>
 
