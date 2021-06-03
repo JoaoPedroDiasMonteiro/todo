@@ -36,7 +36,7 @@ class TodoController extends Controller
             DB::beginTransaction();
             Todo::query()->create($request->validated());
             DB::commit();
-            return redirect()->route('todo.index');
+            return redirect()->back();
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->withErrors(['message' => $th->getMessage()]);
@@ -48,7 +48,7 @@ class TodoController extends Controller
             'status' => 'completed',
             'completed_at' => date('Y-m-d H:i:s')
             ]);
-        return redirect()->route('todo.index');
+        return redirect()->back();
     }
 
     public function uncomplete(Todo $todo) {
@@ -56,7 +56,7 @@ class TodoController extends Controller
             'status' => 'pending',
             'completed_at' => null
         ]);
-        return redirect()->route('todo.index');
+        return redirect()->back();
     }
 
     public function createTodosForWindows() {
@@ -147,6 +147,6 @@ class TodoController extends Controller
     {
         $todo->delete();
 
-        return redirect()->route('todo.index');
+        return redirect()->back();
     }
 }
