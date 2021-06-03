@@ -4,7 +4,11 @@
     <div class="px-4 py-4 bg-white border border-gray-200 rounded shadow-md">
       <div class="text-lg font-bold title">
         Lista de Tarefas
-        <inertia-link :href="route('todo.createTodosForWindows')" class="float-right px-3 text-white bg-blue-500 rounded">Windows 10</inertia-link>
+        <inertia-link
+          :href="route('todo.createTodosForWindows')"
+          class="float-right px-3 text-white bg-blue-500 rounded"
+          >Windows 10</inertia-link
+        >
       </div>
       <div
         class="flex items-center mt-2 text-sm cursor-pointer select-none"
@@ -45,9 +49,12 @@
             <div
               class="flex items-center"
               :class="{ 'line-through': todo.status === 'completed' }"
-              @click="toggleTodo(todo)"
             >
-              <input :checked="todo.status === 'completed'" type="checkbox" />
+              <input
+                :checked="todo.status === 'completed'"
+                type="checkbox"
+                @click="toggleTodo(todo)"
+              />
               <div class="ml-3 text-sm font-semibold">{{ todo.task }}</div>
             </div>
             <div>
@@ -118,7 +125,7 @@ export default {
       }
     },
     deleteTodo(todo) {
-      this.$inertia.delete(route('todo.destroy', todo.id))
+      this.$inertia.delete(route("todo.destroy", todo.id));
     }
   }
 };
