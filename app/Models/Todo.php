@@ -17,6 +17,14 @@ class Todo extends Model
         'completed_at'
     ];
 
+    public function todos() {
+        return $this->hasMany(Todo::class);
+    }
+
+    public function todo() {
+        return $this->belongsTo(Todo::class);
+    }
+
     public function getIsCheckedAttribute() {
         return ($this->attributes['status'] === 'completed' ? true : false);
     }
