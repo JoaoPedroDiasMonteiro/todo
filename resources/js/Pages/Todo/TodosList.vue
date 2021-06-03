@@ -14,7 +14,7 @@
           type="checkbox"
           @click="toggleTodo(todo)"
         />
-        <div class="ml-3 text-sm font-semibold">{{ todo.task }}</div>
+        <div class="ml-3 text-sm font-semibold" @click="childs(todo)">{{ todo.task }}</div>
       </div>
       <div>
         <button>
@@ -42,6 +42,9 @@ export default {
     todos: Object,
   },
   methods: {
+    childs(todo) {
+        this.$inertia.get(route('todo.show', todo.id));
+    },
     toggleTodo(todo) {
       if (todo.status === "pending") {
         todo.status = "completed";

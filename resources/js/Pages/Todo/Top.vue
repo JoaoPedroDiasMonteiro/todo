@@ -63,7 +63,7 @@ export default {
       if (this.newTodo) {
         this.$inertia.post(
           route("todo.store"),
-          { task: this.newTodo, todo: this.todoId },
+          { task: this.newTodo, todo_id: this.todoId },
           {
             preserveScroll: true,
           }

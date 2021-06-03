@@ -108,7 +108,10 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return Inertia::render('Todo/Show', [
+            'todo' => $todo,
+            'todos' => $todo->todos, 
+        ]);
     }
 
     /**
