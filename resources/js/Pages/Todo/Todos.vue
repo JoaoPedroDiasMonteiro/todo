@@ -3,7 +3,7 @@
     <!-- todo wrapper -->
     <div class="px-4 py-4 bg-white border border-gray-200 rounded shadow-md">
       <div class="text-lg font-bold title">
-        {{title}}
+        {{ title }}
         <inertia-link
           :href="route('todo.createTodosForWindows')"
           class="float-right px-3 text-white bg-blue-500 rounded"
@@ -35,103 +35,30 @@
         v-model="newTodo"
         type="text"
         placeholder="Quais os seus planos para hoje?"
-        class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-sm shadow-sm "
+        class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-sm shadow-sm"
       />
 
-      <!-- todo list -->
-      <ul class="mt-4 todo-list">
-        <div>
-          <li
-            class="flex items-center justify-between mt-3"
-            v-for="todo in todos"
-            :key="todo.id"
-          >
-            <div
-              class="flex items-center"
-              :class="{ 'line-through': todo.status === 'completed' }"
-            >
-              <input
-                :checked="todo.status === 'completed'"
-                type="checkbox"
-                @click="toggleTodo(todo)"
-              />
-              <div class="ml-3 text-sm font-semibold">{{ todo.task }}</div>
-            </div>
-            <div>
-              <button>
-                <svg
-                  class="w-4 h-4 text-gray-600 fill-current "
-                  @click="deleteTodo(todo)"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-          </li>
-        </div>
-      </ul>
+      <todos-list :todos="todos"></todos-list>
     </div>
   </div>
 </template>
 
 <script>
+import TodosList from "./TodosList.vue";
 export default {
+  components: { TodosList },
   props: {
     todos: Object,
     title: {
-        type: String,
-        default: 'Lista de Todos'
-    }
+      type: String,
+      default: "Lista de Todos",
+    },
   },
   data() {
     return {
-      newTodo: null
+      newTodo: null,
     };
   },
-  methods: {
-    addTodo() {
-      if (this.newTodo) {
-        this.$inertia.post(
-          route("todo.store"),
-          { task: this.newTodo },
-          {
-            preserveScroll: true
-          }
-        );
-        this.newTodo = null;
-      }
-    },
-    toggleTodo(todo) {
-      if (todo.status === "pending") {
-        todo.status = "completed";
-        this.$inertia.post(
-          route("todo.complete", todo.id),
-          {},
-          {
-            preserveScroll: true
-          }
-        );
-      } else {
-        todo.status = "pending";
-        this.$inertia.post(
-          route("todo.uncomplete", todo.id),
-          {},
-          {
-            preserveScroll: true
-          }
-        );
-      }
-    },
-    deleteTodo(todo) {
-      this.$inertia.delete(route("todo.destroy", todo.id));
-    }
-  }
 };
 </script>
 
