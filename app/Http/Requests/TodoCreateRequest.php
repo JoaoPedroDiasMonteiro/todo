@@ -25,7 +25,7 @@ class TodoCreateRequest extends FormRequest
     {
         return [
             'task' => 'required|string|min:1|max:128',
-            'todo_id' => 'nullable|exists:todos'
+            'todo_id' => 'nullable|exists:todos,id'
         ];
     }
 }
