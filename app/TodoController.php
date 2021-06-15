@@ -19,7 +19,7 @@ class TodoController extends Controller
     public function index()
     {
         return Inertia::render('Todo/Index', [
-            'todos' => Todo::withRecentCompleted()->orderBy('status')->get()
+            'todos' => Todo::withRecentCompleted()->orderBy('status')->with('todos')->get()->append('subTodosDetails')->toArray()
         ]);
     }
 
@@ -110,7 +110,7 @@ class TodoController extends Controller
     {
         return Inertia::render('Todo/Show', [
             'todo' => $todo,
-            'todos' => $todo->todos, 
+            'todos' => $todo->todos()->get()->append('subTodosDetails')->toArray(), 
         ]);
     }
 
