@@ -14,7 +14,9 @@
           type="checkbox"
           @click="toggleTodo(todo)"
         />
-        <div class="ml-3 text-sm font-semibold" @click="childs(todo)">{{ todo.task }}</div>
+        <div class="ml-3 text-sm font-semibold" @click="childs(todo)">{{ todo.task }} 
+          <span class="text-gray-400 font-light pl-1 font-mono" v-if="todo.subTodosDetails.total"> {{todo.subTodosDetails.completed + '/' + todo.subTodosDetails.total}} </span> 
+        </div>
       </div>
       <div>
         <button>
