@@ -28,6 +28,13 @@ class Todo extends Model
         return $this->belongsTo(Todo::class);
     }
 
+    public function getSubTodosDetailsAttribute()
+    {
+        $completed = $this->todos()->get()->where('status', 'completed')->count();
+        $total = $this->todos()->get()->count();
+        return ['completed' => $completed, 'total' => $total];
+    }
+
     public function getIsCheckedAttribute()
     {
         return ($this->attributes['status'] === 'completed' ? true : false);
