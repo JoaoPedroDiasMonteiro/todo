@@ -43,15 +43,17 @@ class TodoController extends Controller
         }
     }
 
-    public function complete(Todo $todo) {
+    public function complete(Todo $todo)
+    {
         $todo->update([
             'status' => 'completed',
             'completed_at' => date('Y-m-d H:i:s')
-            ]);
+        ]);
         return redirect()->back();
     }
 
-    public function uncomplete(Todo $todo) {
+    public function uncomplete(Todo $todo)
+    {
         $todo->update([
             'status' => 'pending',
             'completed_at' => null
@@ -59,45 +61,59 @@ class TodoController extends Controller
         return redirect()->back();
     }
 
-    public function createTodosForWindows() {
-        $todos = [
-            ['task' => '----Instalações----'],
-            ['task' => 'Instalar Office'],
-            ['task' => 'Instalar Google Chrome'],
-            ['task' => 'Instalar WinRAR'],
-            ['task' => 'Instalar Adobe PDF'],
-            ['task' => 'Instalar Suporte Visual'],
+    public function createTodosForWindows()
+    {
+        try {
+            DB::beginTransaction();
+            $mainTodo = Todo::query()->create(['task' => 'Adicionar Nome Depois', 'todo_id', '1']);
 
-            ['task' => '----Otimizações----'],
-            ['task' => 'Serviço: SYSMAIN'],
-            ['task' => 'Energia e Suspensão'],
-            ['task' => 'Segurança e Manutenção 1'],
-            ['task' => 'Segurança e Manutenção 2'],
-            ['task' => 'Gerenciador de Tarefas/Iniciar (OneDrive)'],
+            $instalations = Todo::query()->create(['task' => 'Instalações', 'todo_id' => $mainTodo->id]);
+            $otimizations = Todo::query()->create(['task' => 'Otimizações', 'todo_id' => $mainTodo->id]);
+            $neymar = Todo::query()->create(['task' => 'Neymar', 'todo_id' => $mainTodo->id]);
+            $beautify = Todo::query()->create(['task' => 'Qualidade de Vida', 'todo_id' => $mainTodo->id]);
+            $essentials = Todo::query()->create(['task' => 'Essenciais', 'todo_id' => $mainTodo->id]);
 
-            ['task' => '----Crack----'],
-            ['task' => 'Desativar Windows Defender'],
-            ['task' => 'Crack Windows 10 e Office'],
-            ['task' => 'Adicionar Exclusões'],
-            ['task' => 'Desativar Atualizações do Windows (WUB)'],
-            ['task' => 'Ativar Windows Defender'],
-            ['task' => 'Desativar Atualizações do Office'],
+            $todos = [
+                ['task' => 'Instalar Office', 'todo_id' => $instalations->id],
+                ['task' => 'Instalar Google Chrome', 'todo_id' => $instalations->id],
+                ['task' => 'Instalar WinRAR', 'todo_id' => $instalations->id],
+                ['task' => 'Instalar Adobe PDF', 'todo_id' => $instalations->id],
+                ['task' => 'Instalar Suporte Visual', 'todo_id' => $instalations->id],
 
-            ['task' => '----Firulas----'],
-            ['task' => 'Colocar Icones do Computador na Área de Trabalho'],
-            ['task' => 'Definir Chrome como Default'],
-            ['task' => 'Definir Adobe PDF com o Default'],
-            ['task' => 'Arrastar Icones do Relógio'],
-            ['task' => 'Arrumar as Notificações do Windows'],
-            ['task' => 'Colocar Office na área de Trabalho'],
-            ['task' => 'Organizar os Icones'], 
-            ['task' => 'Arrastar Ícone do Office para a barra de tarefas'],
-            ['task' => 'Otimizar Windows Defender (tirar os amarelinhos)'],
-            ['task' => 'Alterar o Nome dos Discos (C: Sistema, D: Dados)'],
-        ];
+                ['task' => 'Serviço: SYSMAIN', 'todo_id' => $otimizations->id],
+                ['task' => 'Energia e Suspensão', 'todo_id' => $otimizations->id],
+                ['task' => 'Segurança e Manutenção 1', 'todo_id' => $otimizations->id],
+                ['task' => 'Segurança e Manutenção 2', 'todo_id' => $otimizations->id],
+                ['task' => 'Gerenciador de Tarefas/Iniciar (OneDrive)', 'todo_id' => $otimizations->id],
 
-        Todo::query()->insert($todos);
-        return redirect()->route('todo.index');
+                ['task' => 'Desativar Windows Defender', 'todo_id' => $neymar->id],
+                ['task' => 'Crack Windows 10 e Office', 'todo_id' => $neymar->id],
+                ['task' => 'Adicionar Exclusões', 'todo_id' => $neymar->id],
+                ['task' => 'Desativar Atualizações do Windows (WUB)', 'todo_id' => $neymar->id],
+                ['task' => 'Ativar Windows Defender', 'todo_id' => $neymar->id],
+                ['task' => 'Desativar Atualizações do Office', 'todo_id' => $neymar->id],
+
+                ['task' => 'Colocar Icones do Computador na Área de Trabalho', 'todo_id' => $beautify->id],
+                ['task' => 'Definir Chrome como Default', 'todo_id' => $beautify->id],
+                ['task' => 'Definir Adobe PDF com o Default', 'todo_id' => $beautify->id],
+                ['task' => 'Arrastar Icones do Relógio', 'todo_id' => $beautify->id],
+                ['task' => 'Arrumar as Notificações do Windows', 'todo_id' => $beautify->id],
+                ['task' => 'Colocar Office na área de Trabalho', 'todo_id' => $beautify->id],
+                ['task' => 'Organizar os Icones', 'todo_id' => $beautify->id],
+                ['task' => 'Otimizar Windows Defender (tirar os amarelinhos)', 'todo_id' => $beautify->id],
+                ['task' => 'Alterar o Nome dos Discos (C: Sistema, D: Dados)', 'todo_id' => $beautify->id],
+
+                ['task' => 'Checar Drivers do Sistema', 'todo_id' => $essentials->id],
+                ['task' => 'Restaurar Backup e Redirecinar Usuário', 'todo_id' => $essentials->id],
+            ];
+
+            Todo::query()->insert($todos);
+            DB::commit();
+            return redirect()->route('todo.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+        }
     }
 
     /**
@@ -110,7 +126,7 @@ class TodoController extends Controller
     {
         return Inertia::render('Todo/Show', [
             'todo' => $todo,
-            'todos' => $todo->todos()->get()->append('subTodosDetails')->toArray(), 
+            'todos' => $todo->todos()->get()->append('subTodosDetails')->toArray(),
         ]);
     }
 
