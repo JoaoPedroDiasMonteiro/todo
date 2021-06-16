@@ -67,7 +67,7 @@ export default {
       default: "Lista de Todos",
     },
     todoId: {
-      type: String,
+      type: Number,
       default: null,
     },
   },
@@ -82,6 +82,7 @@ export default {
     },
     back() {
       window.history.back();
+      setTimeout(() => { this.$inertia.get(window.location.href)  }, 50)
     },
     addTodo() {
       if (this.newTodo) {
