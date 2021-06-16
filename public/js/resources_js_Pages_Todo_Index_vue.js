@@ -110,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Lista de Todos"
     },
     todoId: {
-      type: String,
+      type: Number,
       "default": null
     }
   },
@@ -124,7 +124,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.input.focus();
     },
     back: function back() {
+      var _this = this;
+
       window.history.back();
+      setTimeout(function () {
+        _this.$inertia.get(window.location.href);
+      }, 50);
     },
     addTodo: function addTodo() {
       if (this.newTodo) {
