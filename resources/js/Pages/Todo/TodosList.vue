@@ -10,6 +10,7 @@
         :class="{ 'line-through': todo.status === 'completed' }"
       >
         <input
+          class="focus:ring-0 text-gray-500"
           :checked="todo.status === 'completed'"
           type="checkbox"
           @click="toggleTodo(todo)"
