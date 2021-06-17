@@ -15,8 +15,8 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <breeze-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <breeze-nav-link :href="route('todo.index')" :active="route().current('todo.index')">
+                                    Todos
                                 </breeze-nav-link>
                             </div>
                         </div>
