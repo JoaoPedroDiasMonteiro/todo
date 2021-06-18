@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TodoCreateRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -18,8 +19,14 @@ class TodoController extends Controller
      */
     public function index()
     {
+        $todos = Todo::withRecentCompleted()
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('status')
+            ->with('todos')
+            ->get()->append('subTodosDetails')->toArray();
+
         return Inertia::render('Todo/Index', [
-            'todos' => Todo::withRecentCompleted()->orderBy('status')->with('todos')->get()->append('subTodosDetails')->toArray()
+            'todos' => $todos
         ]);
     }
 
@@ -34,30 +41,40 @@ class TodoController extends Controller
     {
         try {
             DB::beginTransaction();
-            Todo::query()->create($request->validated());
+            $todo = new Todo();
+            $todo->fill($request->validated());
+            $todo->user_id = Auth::user()->id;
+            $todo->saveOrFail();
             DB::commit();
             return redirect()->back();
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th);
             return redirect()->back()->withErrors(['message' => $th->getMessage()]);
         }
     }
 
     public function complete(Todo $todo)
     {
-        $todo->update([
-            'status' => 'completed',
-            'completed_at' => date('Y-m-d H:i:s')
-        ]);
+        if (Auth::user()->id === $todo->user_id) {
+            $todo->update([
+                'status' => 'completed',
+                'completed_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+
         return redirect()->back();
     }
 
     public function uncomplete(Todo $todo)
     {
-        $todo->update([
-            'status' => 'pending',
-            'completed_at' => null
-        ]);
+        if (Auth::user()->id === $todo->user_id) {
+            $todo->update([
+                'status' => 'pending',
+                'completed_at' => null
+            ]);
+        }
+
         return redirect()->back();
     }
 
@@ -65,46 +82,48 @@ class TodoController extends Controller
     {
         try {
             DB::beginTransaction();
-            $mainTodo = Todo::query()->create(['task' => 'Adicionar Nome Depois', 'todo_id', '1']);
+            $userId = Auth::user()->id;
 
-            $instalations = Todo::query()->create(['task' => 'Instalações', 'todo_id' => $mainTodo->id]);
-            $otimizations = Todo::query()->create(['task' => 'Otimizações', 'todo_id' => $mainTodo->id]);
-            $neymar = Todo::query()->create(['task' => 'Neymar', 'todo_id' => $mainTodo->id]);
-            $beautify = Todo::query()->create(['task' => 'Qualidade de Vida', 'todo_id' => $mainTodo->id]);
-            $essentials = Todo::query()->create(['task' => 'Essenciais', 'todo_id' => $mainTodo->id]);
+            $mainTodo = Todo::query()->create(['task' => 'Adicionar Nome Depois', 'user_id' => $userId]);
+
+            $instalations = Todo::query()->create(['task' => 'Instalações', 'todo_id' => $mainTodo->id, 'user_id' => $userId]);
+            $otimizations = Todo::query()->create(['task' => 'Otimizações', 'todo_id' => $mainTodo->id, 'user_id' => $userId]);
+            $neymar = Todo::query()->create(['task' => 'Neymar', 'todo_id' => $mainTodo->id, 'user_id' => $userId]);
+            $beautify = Todo::query()->create(['task' => 'Qualidade de Vida', 'todo_id' => $mainTodo->id, 'user_id' => $userId]);
+            $essentials = Todo::query()->create(['task' => 'Essenciais', 'todo_id' => $mainTodo->id, 'user_id' => $userId]);
 
             $todos = [
-                ['task' => 'Instalar Office', 'todo_id' => $instalations->id],
-                ['task' => 'Instalar Google Chrome', 'todo_id' => $instalations->id],
-                ['task' => 'Instalar WinRAR', 'todo_id' => $instalations->id],
-                ['task' => 'Instalar Adobe PDF', 'todo_id' => $instalations->id],
-                ['task' => 'Instalar Suporte Visual', 'todo_id' => $instalations->id],
+                ['task' => 'Instalar Office', 'todo_id' => $instalations->id, 'user_id' => $userId],
+                ['task' => 'Instalar Google Chrome', 'todo_id' => $instalations->id, 'user_id' => $userId],
+                ['task' => 'Instalar WinRAR', 'todo_id' => $instalations->id, 'user_id' => $userId],
+                ['task' => 'Instalar Adobe PDF', 'todo_id' => $instalations->id, 'user_id' => $userId],
+                ['task' => 'Instalar Suporte Visual', 'todo_id' => $instalations->id, 'user_id' => $userId],
 
-                ['task' => 'Serviço: SYSMAIN', 'todo_id' => $otimizations->id],
-                ['task' => 'Energia e Suspensão', 'todo_id' => $otimizations->id],
-                ['task' => 'Segurança e Manutenção 1', 'todo_id' => $otimizations->id],
-                ['task' => 'Segurança e Manutenção 2', 'todo_id' => $otimizations->id],
-                ['task' => 'Gerenciador de Tarefas/Iniciar (OneDrive)', 'todo_id' => $otimizations->id],
+                ['task' => 'Serviço: SYSMAIN', 'todo_id' => $otimizations->id, 'user_id' => $userId],
+                ['task' => 'Energia e Suspensão', 'todo_id' => $otimizations->id, 'user_id' => $userId],
+                ['task' => 'Segurança e Manutenção 1', 'todo_id' => $otimizations->id, 'user_id' => $userId],
+                ['task' => 'Segurança e Manutenção 2', 'todo_id' => $otimizations->id, 'user_id' => $userId],
+                ['task' => 'Gerenciador de Tarefas/Iniciar (OneDrive)', 'todo_id' => $otimizations->id, 'user_id' => $userId],
 
-                ['task' => 'Desativar Windows Defender', 'todo_id' => $neymar->id],
-                ['task' => 'Crack Windows 10 e Office', 'todo_id' => $neymar->id],
-                ['task' => 'Adicionar Exclusões', 'todo_id' => $neymar->id],
-                ['task' => 'Desativar Atualizações do Windows (WUB)', 'todo_id' => $neymar->id],
-                ['task' => 'Ativar Windows Defender', 'todo_id' => $neymar->id],
-                ['task' => 'Desativar Atualizações do Office', 'todo_id' => $neymar->id],
+                ['task' => 'Desativar Windows Defender', 'todo_id' => $neymar->id, 'user_id' => $userId],
+                ['task' => 'Crack Windows 10 e Office', 'todo_id' => $neymar->id, 'user_id' => $userId],
+                ['task' => 'Adicionar Exclusões', 'todo_id' => $neymar->id, 'user_id' => $userId],
+                ['task' => 'Desativar Atualizações do Windows (WUB)', 'todo_id' => $neymar->id, 'user_id' => $userId],
+                ['task' => 'Ativar Windows Defender', 'todo_id' => $neymar->id, 'user_id' => $userId],
+                ['task' => 'Desativar Atualizações do Office', 'todo_id' => $neymar->id, 'user_id' => $userId],
 
-                ['task' => 'Colocar Icones do Computador na Área de Trabalho', 'todo_id' => $beautify->id],
-                ['task' => 'Definir Chrome como Default', 'todo_id' => $beautify->id],
-                ['task' => 'Definir Adobe PDF com o Default', 'todo_id' => $beautify->id],
-                ['task' => 'Arrastar Icones do Relógio', 'todo_id' => $beautify->id],
-                ['task' => 'Arrumar as Notificações do Windows', 'todo_id' => $beautify->id],
-                ['task' => 'Colocar Office na área de Trabalho', 'todo_id' => $beautify->id],
-                ['task' => 'Organizar os Icones', 'todo_id' => $beautify->id],
-                ['task' => 'Otimizar Windows Defender (tirar os amarelinhos)', 'todo_id' => $beautify->id],
-                ['task' => 'Alterar o Nome dos Discos (C: Sistema, D: Dados)', 'todo_id' => $beautify->id],
+                ['task' => 'Colocar Icones do Computador na Área de Trabalho', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Definir Chrome como Default', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Definir Adobe PDF com o Default', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Arrastar Icones do Relógio', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Arrumar as Notificações do Windows', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Colocar Office na área de Trabalho', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Organizar os Icones', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Otimizar Windows Defender (tirar os amarelinhos)', 'todo_id' => $beautify->id, 'user_id' => $userId],
+                ['task' => 'Alterar o Nome dos Discos (C: Sistema, D: Dados)', 'todo_id' => $beautify->id, 'user_id' => $userId],
 
-                ['task' => 'Checar Drivers do Sistema', 'todo_id' => $essentials->id],
-                ['task' => 'Restaurar Backup e Redirecinar Usuário', 'todo_id' => $essentials->id],
+                ['task' => 'Checar Drivers do Sistema', 'todo_id' => $essentials->id, 'user_id' => $userId],
+                ['task' => 'Restaurar Backup e Redirecinar Usuário', 'todo_id' => $essentials->id, 'user_id' => $userId],
             ];
 
             Todo::query()->insert($todos);
@@ -124,9 +143,11 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
+        $todoChecked = Todo::query()->where('user_id', Auth::user()->id)->where('id', $todo->id)->firstOrFail();
+
         return Inertia::render('Todo/Show', [
-            'todo' => $todo,
-            'todos' => $todo->todos()->get()->append('subTodosDetails')->toArray(),
+            'todo' => $todoChecked,
+            'todos' => $todoChecked->todos()->get()->append('subTodosDetails')->toArray(),
         ]);
     }
 
@@ -161,7 +182,9 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        $todo->delete();
+        if (Auth::user()->id === $todo->user_id) {
+            $todo->delete();
+        }
 
         return redirect()->back();
     }
