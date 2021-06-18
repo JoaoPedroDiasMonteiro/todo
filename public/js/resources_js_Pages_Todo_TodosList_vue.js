@@ -77,6 +77,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         'line-through': todo.status === 'completed'
       }]
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+      "class": "focus:ring-0 text-gray-500",
       checked: todo.status === 'completed',
       type: "checkbox",
       onClick: function onClick($event) {

@@ -54,7 +54,7 @@
       v-model="newTodo"
       type="text"
       placeholder="Quais os seus planos para hoje?"
-      class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-sm shadow-sm"
+      class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-sm shadow-sm inputfdp"
     />
   </div>
 </template>
@@ -101,4 +101,16 @@ export default {
 </script>
 
 <style>
+  .inputfdp {
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+    --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/) !important;
+    --tw-ring-offset-width: 0px !important;
+    --tw-ring-offset-color: #fff !important;
+    --tw-ring-color: #818181 !important;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color) !important;
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color) !important;
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000) !important;
+    border-color: #36363600 !important;
+  }
 </style>
