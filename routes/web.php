@@ -2,7 +2,6 @@
 
 use App\TodoController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +19,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect()->route('todo.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+Route::get('profile', 'App\Http\Controllers\UserController@show')->name('profile.show');
+Route::match(['put', 'patch'], 'profile', 'App\Http\Controllers\UserController@update')->name('profile.update');
+
 
 Route::resource('todo', TodoController::class)->middleware(['auth', 'verified']);
 
@@ -29,4 +34,4 @@ Route::post('todo/{todo}/complete', [TodoController::class, 'complete'])->name('
 Route::post('todo/{todo}/uncomplete', [TodoController::class, 'uncomplete'])->name('todo.uncomplete')->middleware(['auth', 'verified']);
 Route::get('todo/create/for-windows', [TodoController::class, 'createTodosForWindows'])->name('todo.createTodosForWindows')->middleware(['auth', 'verified']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
