@@ -40739,6 +40739,14 @@ var map = {
 	"./Todo/Top.vue": [
 		"./resources/js/Pages/Todo/Top.vue",
 		"resources_js_Pages_Todo_Top_vue"
+	],
+	"./User/Profile": [
+		"./resources/js/Pages/User/Profile.vue",
+		"resources_js_Pages_User_Profile_vue"
+	],
+	"./User/Profile.vue": [
+		"./resources/js/Pages/User/Profile.vue",
+		"resources_js_Pages_User_Profile_vue"
 	]
 };
 function webpackAsyncContext(req) {
@@ -40877,7 +40885,7 @@ module.exports = webpackAsyncContext;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_Pages_Auth_ConfirmPassword_vue":1,"resources_js_Pages_Auth_ForgotPassword_vue":1,"resources_js_Pages_Auth_Login_vue":1,"resources_js_Pages_Auth_Register_vue":1,"resources_js_Pages_Auth_ResetPassword_vue":1,"resources_js_Pages_Auth_VerifyEmail_vue":1,"resources_js_Pages_Todo_Index_vue":1,"resources_js_Pages_Todo_Show_vue":1,"resources_js_Pages_Todo_Todos_vue":1,"resources_js_Pages_Todo_TodosList_vue":1,"resources_js_Pages_Todo_Top_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_Auth_ConfirmPassword_vue":1,"resources_js_Pages_Auth_ForgotPassword_vue":1,"resources_js_Pages_Auth_Login_vue":1,"resources_js_Pages_Auth_Register_vue":1,"resources_js_Pages_Auth_ResetPassword_vue":1,"resources_js_Pages_Auth_VerifyEmail_vue":1,"resources_js_Pages_Todo_Index_vue":1,"resources_js_Pages_Todo_Show_vue":1,"resources_js_Pages_Todo_Todos_vue":1,"resources_js_Pages_Todo_TodosList_vue":1,"resources_js_Pages_Todo_Top_vue":1,"resources_js_Pages_User_Profile_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
