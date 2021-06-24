@@ -33,7 +33,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     deleteTodo: function deleteTodo(todo) {
-      this.$inertia["delete"](route("todo.destroy", todo.id));
+      var confirm = window.confirm('Você Deseja Deletar esta Tarefa? \n' + todo.task);
+
+      if (confirm === true) {
+        this.$inertia["delete"](route("todo.destroy", todo.id));
+      }
     }
   }
 });

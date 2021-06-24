@@ -70,7 +70,11 @@ export default {
       }
     },
     deleteTodo(todo) {
-      this.$inertia.delete(route("todo.destroy", todo.id));
+      let confirm = window.confirm('Você Deseja Deletar esta Tarefa? \n' + todo.task)
+
+      if (confirm === true) {
+        this.$inertia.delete(route("todo.destroy", todo.id));
+      }
     },
   },
 };
