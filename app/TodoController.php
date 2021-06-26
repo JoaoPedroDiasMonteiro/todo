@@ -143,11 +143,12 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        $todoChecked = Todo::query()->where('user_id', Auth::user()->id)->where('id', $todo->id)->firstOrFail();
+        $todoChecked = Todo::query()->where('user_id', Auth::user()->id)->where('id', $todo->id)->with('todo:id,task')->firstOrFail();
 
-        return Inertia::render('Todo/Show', [
-            'todo' => $todoChecked,
-            'todos' => $todoChecked->todos()->get()->append('subTodosDetails')->toArray(),
+        return Inertia::render('Todo/Index', [
+            'modal' => true,
+            'todo' => $todoChecked->toArray(),
+            'subTodos' => $todoChecked->todos()->orderBy('status')->get()->append('subTodosDetails')->toArray(),
         ]);
     }
 

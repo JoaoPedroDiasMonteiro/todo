@@ -1,24 +1,24 @@
 <template>
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 bg-white border-b border-gray-200">
-          <todos :todos="todos"></todos>
-        </div>
-      </div>
-    </div>
-  </div>
+    <authenticated-main-container>
+        <todos :todos="todos"></todos>
+        <todo-modal v-if="modal" :subTodos="subTodos" :todo="todo"></todo-modal>
+    </authenticated-main-container>
 </template>
 
 <script>
-import AuthenticatedVue from '@/Layouts/Authenticated.vue';
+import AuthenticatedVue from "@/Layouts/Authenticated.vue";
 import Todos from "./Todos.vue";
+import AuthenticatedMainContainer from "@/Components/AuthenticatedMainContainer.vue";
+import TodoModal from './TodoModal.vue';
 export default {
-  layout: [AuthenticatedVue],
-  components: { Todos },
-  props: {
-    todos: Object
-  }
+    layout: [AuthenticatedVue],
+    components: { Todos, AuthenticatedMainContainer, TodoModal },
+    props: {
+        todos: Object,
+        modal: Boolean,
+        todo: Object,
+        subTodos: Object
+    },
 };
 </script>
 

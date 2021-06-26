@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     childs(todo) {
-        this.$inertia.get(route('todo.show', todo.id));
+        this.$inertia.get(route('todo.show', todo.id), {} , { only: ['modal', 'todo', 'subTodos'] });
     },
     toggleTodo(todo) {
       if (todo.status === "pending") {
@@ -56,6 +56,7 @@ export default {
           {},
           {
             preserveScroll: true,
+            only: ['todos', 'subTodos']
           }
         );
       } else {
@@ -65,12 +66,20 @@ export default {
           {},
           {
             preserveScroll: true,
+            only: ['todos', 'subTodos']
           }
         );
       }
     },
     deleteTodo(todo) {
-      this.$inertia.delete(route("todo.destroy", todo.id));
+      this.$inertia.delete(
+        route("todo.destroy", todo.id),
+        {
+          preserveScroll: true,
+          only: ['todos', 'subTodos'],
+          onBefore: () => confirm('Are you sure you want to delete this task?'),
+        }
+      )
     },
   },
 };
