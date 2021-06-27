@@ -110,8 +110,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     childs: function childs(todo) {
-      this.$inertia.get(route('todo.show', todo.id), {}, {
-        only: ['modal', 'todo', 'subTodos']
+      this.$inertia.get(route("todo.show", todo.id), {}, {
+        only: ["modal", "todo", "subTodos"]
       });
     },
     toggleTodo: function toggleTodo(todo) {
@@ -119,22 +119,22 @@ __webpack_require__.r(__webpack_exports__);
         todo.status = "completed";
         this.$inertia.post(route("todo.complete", todo.id), {}, {
           preserveScroll: true,
-          only: ['todos', 'subTodos']
+          only: ["todos", "subTodos"]
         });
       } else {
         todo.status = "pending";
         this.$inertia.post(route("todo.uncomplete", todo.id), {}, {
           preserveScroll: true,
-          only: ['todos', 'subTodos']
+          only: ["todos", "subTodos"]
         });
       }
     },
     deleteTodo: function deleteTodo(todo) {
       this.$inertia["delete"](route("todo.destroy", todo.id), {
         preserveScroll: true,
-        only: ['todos', 'subTodos'],
+        only: ["todos", "subTodos"],
         onBefore: function onBefore() {
-          return confirm('Are you sure you want to delete this task?');
+          return confirm("Are you sure you want to delete this task?");
         }
       });
     }
@@ -372,7 +372,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(todo.task) + " ", 1
     /* TEXT */
-    ), todo.subTodosDetails.total ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(todo.subTodosDetails.completed + '/' + todo.subTodosDetails.total), 1
+    ), todo.subTodosDetails.total ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(todo.subTodosDetails.completed + "/" + todo.subTodosDetails.total), 1
     /* TEXT */
     )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 8
     /* PROPS */
