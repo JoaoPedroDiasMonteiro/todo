@@ -56,7 +56,7 @@ class TodoController extends Controller
 
     public function complete(Todo $todo)
     {
-        if (Auth::user()->id === $todo->user_id) {
+        if (Auth::user()->id == $todo->user_id) {
             $todo->update([
                 'status' => 'completed',
                 'completed_at' => date('Y-m-d H:i:s')
@@ -68,7 +68,7 @@ class TodoController extends Controller
 
     public function uncomplete(Todo $todo)
     {
-        if (Auth::user()->id === $todo->user_id) {
+        if (Auth::user()->id == $todo->user_id) {
             $todo->update([
                 'status' => 'pending',
                 'completed_at' => null
@@ -194,7 +194,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        if (Auth::user()->id === $todo->user_id) {
+        if (Auth::user()->id == $todo->user_id) {
             $todo->delete();
         }
 
