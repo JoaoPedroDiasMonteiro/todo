@@ -11,7 +11,7 @@
 			{{ todo.task }}
 		</div>
 		<slot />
-		<input @keydown.enter="addTodo" ref="input" v-model="newTodo" type="text" placeholder="Add sub-task" class="w-full px-4 py-2 mt-4 rounded-sm shadow-sm input" />
+		<input @keydown.enter="addTodo" ref="input" v-model="newTodo" type="text" placeholder="Add sub-task" class="w-full px-4 py-2 rounded-sm shadow-sm input" />
 	</div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
 	box-shadow: none !important;
 	border-color: none !important;
 	border: none !important;
-	border-top: 1px solid #e5e7eb !important;
+	border-top:  1px solid rgba(209, 213, 219, 1) !important;
 }
 
 .input:focus {
