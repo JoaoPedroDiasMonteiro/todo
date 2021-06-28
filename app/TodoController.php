@@ -172,7 +172,18 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $request->validate([
+            'task' => 'required|string|min:1|max:128',
+        ]);
+
+        try {
+            $todo->fill($request->only('task'));
+            $todo->saveOrFail();
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('error', 'Oops!');
+        }
     }
 
     /**
