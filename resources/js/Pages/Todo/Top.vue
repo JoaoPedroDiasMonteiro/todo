@@ -23,11 +23,6 @@
         </span>
       </div>
       {{ title }}
-      <inertia-link
-        :href="route('todo.createTodosForWindows')"
-        class="float-right px-3 text-white bg-blue-500 rounded"
-        >Windows 10</inertia-link
-      >
     </div>
     <div
       class="flex items-center mt-2 text-sm cursor-pointer select-none"

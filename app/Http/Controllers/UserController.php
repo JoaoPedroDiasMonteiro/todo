@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
 
@@ -27,7 +28,10 @@ class UserController extends Controller
         ]);
 
         try {
-            $user->fill($request->all());
+            $user->fill($request->except('password'));
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
             $user->saveOrFail();
             return redirect()->route('todo.index')->with(['success', 'Profile Updated!']);
         } catch (\Throwable $th) {
