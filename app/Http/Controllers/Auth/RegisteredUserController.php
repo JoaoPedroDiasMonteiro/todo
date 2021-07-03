@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Todo;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
@@ -50,6 +52,26 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $this->welcome($user);
+
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    private function welcome(User $user)
+    {
+        for ($i = 0; $i < 5; $i++) {
+            try {
+                DB::beginTransaction();
+
+                Todo::query()->create(['user_id' => $user->id, 'task' => 'Adicione uma nova tarefa +']);
+                $task = Todo::query()->create(['user_id' => $user->id, 'task' => 'Clique nesta tarefa para ver as sub-tarefas']);
+                Todo::query()->create(['user_id' => $user->id, 'todo_id' => $task->id, 'task' => 'Você pode adicionar sub-tarefas aqui! ✅']);
+
+                DB::commit();
+                return;
+            } catch (\Throwable $th) {
+                DB::rollBack();
+            }
+        }
     }
 }
