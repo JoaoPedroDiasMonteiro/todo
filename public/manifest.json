@@ -7,6 +7,7 @@
     "name": "TodoList",
     "short_name": "TodoList",
     "description": "Recupere a clareza e a tranquilidade, tirando todas essas tarefas da sua cabe a e colocando na sua lista de tarefas.",
+    "prefer_related_applications": false,
     "icons": [
         {
             "src": "/icon-192x192.png",
