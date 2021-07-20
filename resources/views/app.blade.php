@@ -18,6 +18,15 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        <script>
+          window.OneSignal = window.OneSignal || [];
+          OneSignal.push(function() {
+            OneSignal.init({
+              appId: "ffd2ffdd-808b-4d3e-b61d-e48dbcbbad55",
+            });
+          });
+        </script>
     </head>
     <body class="font-sans antialiased">
         @inertia
