@@ -5,6 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        
+        <script>
+          window.OneSignal = window.OneSignal || [];
+          OneSignal.push(function() {
+            OneSignal.init({
+              appId: "71d8cc29-2574-43cb-9510-446844aef5c5",
+            });
+          });
+        </script>
+
         <link rel="manifest" href="manifest.json">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
@@ -18,15 +29,6 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-        <script>
-          window.OneSignal = window.OneSignal || [];
-          OneSignal.push(function() {
-            OneSignal.init({
-              appId: "ffd2ffdd-808b-4d3e-b61d-e48dbcbbad55",
-            });
-          });
-        </script>
     </head>
     <body class="font-sans antialiased">
         @inertia
